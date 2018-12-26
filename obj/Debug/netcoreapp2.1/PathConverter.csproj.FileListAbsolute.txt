@@ -1,0 +1,11 @@
+C:\Users\Joshua Yurkovich\Documents\Coding Projects\PathConverter\bin\Debug\netcoreapp2.1\PathConverter.deps.json
+C:\Users\Joshua Yurkovich\Documents\Coding Projects\PathConverter\bin\Debug\netcoreapp2.1\PathConverter.runtimeconfig.json
+C:\Users\Joshua Yurkovich\Documents\Coding Projects\PathConverter\bin\Debug\netcoreapp2.1\PathConverter.runtimeconfig.dev.json
+C:\Users\Joshua Yurkovich\Documents\Coding Projects\PathConverter\bin\Debug\netcoreapp2.1\PathConverter.dll
+C:\Users\Joshua Yurkovich\Documents\Coding Projects\PathConverter\bin\Debug\netcoreapp2.1\PathConverter.pdb
+C:\Users\Joshua Yurkovich\Documents\Coding Projects\PathConverter\obj\Debug\netcoreapp2.1\PathConverter.csprojAssemblyReference.cache
+C:\Users\Joshua Yurkovich\Documents\Coding Projects\PathConverter\obj\Debug\netcoreapp2.1\PathConverter.csproj.CoreCompileInputs.cache
+C:\Users\Joshua Yurkovich\Documents\Coding Projects\PathConverter\obj\Debug\netcoreapp2.1\PathConverter.AssemblyInfoInputs.cache
+C:\Users\Joshua Yurkovich\Documents\Coding Projects\PathConverter\obj\Debug\netcoreapp2.1\PathConverter.AssemblyInfo.cs
+C:\Users\Joshua Yurkovich\Documents\Coding Projects\PathConverter\obj\Debug\netcoreapp2.1\PathConverter.dll
+C:\Users\Joshua Yurkovich\Documents\Coding Projects\PathConverter\obj\Debug\netcoreapp2.1\PathConverter.pdb
