@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+    Joshua Yurkovich
+    Connor's Group Coding Exercise: PathConverter
+    12-26-2018
+ */
+using System;
 using System.IO;
 using System.Collections.Generic;
 
