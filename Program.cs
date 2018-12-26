@@ -42,6 +42,14 @@ namespace PathConverter
                 while (streamReader.Peek() > 0) {
                     var inputChar = (char)streamReader.Read();
                     
+                    //Reset Row and Col and Go to new line in output text
+                    if (inputChar == '\n') {
+                        row = 0;
+                        col = 0;
+                        outputText += "\n";
+                    }
+
+                    //Navigate Remote
                     if (inputChar == UpInput) {
                         if (row == 0) {
                             row = RemoteKeyMapping.Count - 1;
@@ -74,6 +82,7 @@ namespace PathConverter
                             col++;
                         }
                     }
+                    //Character Input
                     else if (inputChar == SpaceInput) {
                         outputText += " ";
                     }
