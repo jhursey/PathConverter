@@ -27,8 +27,15 @@ namespace PathConverter
 
         static void Main(string[] args)
         {
-            string outputText = "";
+            var outputText = DetermineMessage();
 
+            using (var writer = File.CreateText(OutputFile)) {
+                writer.WriteLine(outputText);
+            }
+        }
+
+        private static string DetermineMessage() {
+            var outputText = "";
             using (var streamReader = File.OpenText(InputFile)) {
                 var col = 0;
                 var row = 0;
@@ -76,9 +83,7 @@ namespace PathConverter
                 }
             }
 
-            using (var writer = File.CreateText(OutputFile)) {
-                writer.WriteLine(outputText);
-            }
+            return outputText;
         }
     }
 }
