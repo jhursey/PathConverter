@@ -31,9 +31,12 @@ namespace PathConverter
             {
                 using (StreamReader stream = new StreamReader(fileName))
                 {
-                    string keyPath = stream.ReadLine();
-                    string searchTerm = controller.DecodePath(keyPath);
-                    searchTerms.Add(searchTerm);
+                    string keyPath;
+                    while ((keyPath = stream.ReadLine()) != null)
+                    {
+                        string searchTerm = controller.DecodePath(keyPath);
+                        searchTerms.Add(searchTerm);
+                    }
                 }
             }
             catch (Exception e)
@@ -49,7 +52,7 @@ namespace PathConverter
                 {
                     foreach(string searchTerm in searchTerms)
                     {
-                        writer.Write(searchTerm);
+                        writer.WriteLine(searchTerm);
                     }
                 }
             }
