@@ -56,8 +56,9 @@ namespace PathConverter
                     X = Wrap(X + 1, width);
                     return;
                 default:
-                    // For now we will do nothing in the case of an unexpected command,
-                    // since there are no explicit requirements for this case
+                    // An unexpected character was encountered, so exit application
+                    Console.WriteLine($"Malformed input in KeyPad.Move: {command}");
+                    Environment.Exit(-1);
                     return;
             }
         }

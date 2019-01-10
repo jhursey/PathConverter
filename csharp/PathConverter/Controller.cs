@@ -30,8 +30,9 @@ namespace PathConverter
                         searchTerm.Append(keyPad.Select());
                         break;
                     default:
-                        // For now we will do nothing in the case of an unexpected command,
-                        // since there are no explicit requirements for this case
+                        // An unexpected character was encountered, so exit application
+                        Console.WriteLine($"Malformed input in Controller.DecodePath: {ch}");
+                        Environment.Exit(-1);
                         break;
                 }
             }
