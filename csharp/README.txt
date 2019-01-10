@@ -16,4 +16,4 @@ if none is specified
 
 - The program will exit on bad input with no output. For example, if an
 	unexpected character is encountered in the input, the program will 
-	immediately exit.
+	immediately exit with an error message without generating any output.
