@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PathConverter
 {
-    class KeyPad
+    public class KeyPad
     {
         // The keypad that the path will follow
         // This doesn't change for this implementation, so
