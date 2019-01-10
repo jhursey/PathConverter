@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PathConverter
 {
-    // Sends commands to keypad and accumulates selections
-    class Controller
+    /*
+     * Controller simulates the movement around a key pad
+     */ 
+    public class Controller
     {
         public string DecodePath(string keyPath)
         {

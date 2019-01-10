@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace PathConverter
 {
+    /*
+     * The list of commands possible from an input keypath
+     */
     public static class Commands
     {
         public const char UP = 'U';

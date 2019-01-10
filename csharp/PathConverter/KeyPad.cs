@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PathConverter
 {
+    /*
+     * Representation of a key pad.
+     * Stores the current position of the cursor and
+     * returns values on a Select command
+     */
     public class KeyPad
     {
         // The keypad that the path will follow
         // This doesn't change for this implementation, so
         // create only once
-        //
-        // Goal here is to implement such that refactoring
-        // to take in different keypads isn't painful
         private static readonly char[,] keyPad = new char[6, 6]
         {
             {'A', 'B', 'C', 'D', 'E', 'F'},
@@ -38,7 +36,7 @@ namespace PathConverter
         private int width = 6;
         private int height = 6;
 
-        // Moves the selection around the keypad
+        // Moves the selection around the keypad based on an input command
         public void Move(char command)
         {
             switch(command)
@@ -63,7 +61,8 @@ namespace PathConverter
             }
         }
 
-        // Keeps the movements from going out of the array bounds
+        // Keeps the movements from going out of the array bounds by
+        // wrapping them to opposite edge
         private int Wrap(int n, int bounds)
         {
             if (n >= bounds)
@@ -78,7 +77,7 @@ namespace PathConverter
         public char Select()
         {
             // The array is stored (height, width) so we need to flip
-            // X, Y from the usual way we use them.
+            // X, Y from the usual way we think of x,y coordinates.
             return keyPad[Y, X];
         }
     }
