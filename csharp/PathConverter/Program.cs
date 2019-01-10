@@ -12,15 +12,22 @@ namespace PathConverter
         static int Main(string[] args)
         {
             if (args.Length == 0)
-            {
+            { // If no arguments passed in, write an error
                 Console.WriteLine("Please enter a filename");
                 return 1;
             }
 
             string fileName = args[0];
+            // Pick a somewhat unique output file default name
+            string outputFileName = "PCOut" + DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".txt";
 
-            if(!File.Exists(fileName))
-            {
+            if(args.Length > 1)
+            { // If more than one argument passed in, use 2nd as output file
+                outputFileName = args[1];
+            }
+
+            if (!File.Exists(fileName))
+            { // Make sure input file exists
                 Console.WriteLine("Input file does not exist");
                 return 1;
             }
@@ -44,8 +51,7 @@ namespace PathConverter
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
             }
-
-            string outputFileName = "PathConverterOutput.txt";
+            
             try
             {
                 using (StreamWriter writer = new StreamWriter(outputFileName))
