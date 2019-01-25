@@ -1,0 +1,12 @@
+THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG
+THE QUICK BROWN FOX JUMPED OVER THE LAZY DOGG
+A
+AF
+AF
+A5
+A5
+5A
+F05A
+Warning, invalid character (T) detected in string: THIS IS BAD INPUT. Skipping line.
+Warning, invalid character (H) detected in string: HELLO I AM TOM. Skipping line.
+A

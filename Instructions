@@ -1,0 +1,18 @@
+Compiled and tested on a Lenovo ThinkPad X131e running Debian 9.4 (x86-64).
+Linux Kernel: 4.0.0-4-amd64
+Processor: AMD E2-1800 APU with Radeon(tm) HD Graphics x2
+Memory: 3.3 GiB
+
+Compiler: g++ (Debian 6.3.0-18+deb9u1) 6.3.0 20170516
+Compiler command: g++ -W -Wall -pedantic -o keypath keypath.cpp
+
+No makefile included (and it is likely unnecessary).
+
+Usage: ./keypath -i INPUTFILE [-o OUTPUTFILE]
+
+INPUTFILE and OUTPUTFILE are filepaths. -i is mandatory; -o is optional.
+If -o is not provided, an output file in the executable's directory is created as the following: keypath_output_yyyymmdd_HHMMSS.txt using the time at the start of execution.
+
+Currently, if invalid characters are parsed, for that line it will instead print out a warning, followed by the string itself. If you would prefer other handling, I hope you grant me the opportunity to submit another pull request as it should not take long to make changes to this section of the code.
+
+Please find included files containing a sample of my test file and their solutions.
