@@ -132,7 +132,7 @@ int main(int argc, char* argv[]){
     return 1;
   }
 
-  //Arguments can be in any order; we just n
+  //Arguments can be in any order; we just need to make sure we actually have an input file
   for (int i = 1; i < argc; i++){
     if (string(argv[i]) == "-i"){
       if ( i + 1 < argc && string(argv[i+1]) != "-o") //Ensure we aren't at end of arguments and an argument is actually passed if it's the first
