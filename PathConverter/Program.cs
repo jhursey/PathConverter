@@ -9,19 +9,21 @@ namespace PathConverter
     {
         public static void Main(string[] args)
         {
+            //Using Serilog for logging.  Makes output simple and will write results to file.
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
-                .WriteTo.File("Files\\file.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File(Constants.FilePaths.LOG, rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
             KeypathProcessor processor = new KeypathProcessor(Log.Logger);
 
             string filepath = string.Empty;
 
+            //Allowing user to enter multiple files for path conversion
             do
             {
-                Console.Write("Enter file path: (0 to exit): ");
+                Console.Write("Enter file path (0 to exit): ");
                 filepath = Console.ReadLine();
 
                 if (filepath == "0")
@@ -39,7 +41,7 @@ namespace PathConverter
 
             } while (filepath != "0");
 
-                Console.WriteLine("Thanks for using PathConverter. Press any key to exit.");
+            Console.WriteLine($"Thanks for using PathConverter. Results saved in {Constants.FilePaths.LOG}. Press any key to exit.");
             Console.ReadKey();
         }
     }

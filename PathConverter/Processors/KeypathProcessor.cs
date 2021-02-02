@@ -9,6 +9,9 @@ using PathConverter.Interfaces;
 
 namespace PathConverter.Processors
 {
+    /// <summary>
+    /// Processes conversion of keypaths to valid text
+    /// </summary>
     public class KeypathProcessor
     {
         readonly ILogger _log;
@@ -18,6 +21,11 @@ namespace PathConverter.Processors
             _log = log;
         }
 
+        /// <summary>
+        /// Given a filepath, parses the file and returns a Keypath with the input from file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public Keypath ParseFile(string path)
         {
             if (!File.Exists(path))
@@ -29,19 +37,31 @@ namespace PathConverter.Processors
             return new Keypath(File.ReadLines(path).ToList());
         }
 
-        public string ConvertKeypath(IKeypath keypath, Keyboard keyboard)
+        /// <summary>
+        /// Given a keypath and a keyboard, converts and returns the output of the keypath
+        /// </summary>
+        /// <param name="keypath"></param>
+        /// <param name="keyboard"></param>
+        /// <returns></returns>
+        public string ConvertKeypath(IKeypath keypath, IKeyboard keyboard)
         {
             if (keypath == null || !IsValidKeypath(keypath.Inputs))
             {
                 _log.Information($"KeypathProcessor::ConvertKeypath() No valid input.");
                 return null;
             }
+            else if (keyboard?.Keys == null || !keyboard.Keys.Any())
+            {
+                _log.Information($"KeypathProcessor::ConvertKeypath() No valid keyboard.");
+                return null;
+            }
 
-            Cursor cursor = new Cursor();
-            string response = string.Empty;
+            StringBuilder response = new StringBuilder();
 
             foreach (string input in keypath.Inputs)
             {
+                Cursor cursor = new Cursor();
+
                 foreach (char character in input)
                 {
                     switch (character)
@@ -59,23 +79,31 @@ namespace PathConverter.Processors
                             cursor = cursor.KeyRight();
                             break;
                         case Constants.Keypaths.SPACE:
-                            response += " ";
+                            response.Append(" ");
                             break;
                         case Constants.Keypaths.SELECT:
-                            response += keyboard.Keys[cursor.Y][cursor.X];
+                            response.Append(keyboard.Keys[cursor.Y][cursor.X]);
                             break;
                     }
                 }
+
+                response.AppendLine();
             }
 
-            return response;
+            _log.Information("KeypathProcessor::ConvertKeypath() Conversion Successful");
+            return response?.ToString().Trim();
         }
 
+        /// <summary>
+        /// Validates the given inputs to ensure the keypath is valid. returns a boolean value
+        /// </summary>
+        /// <param name="inputs"></param>
+        /// <returns></returns>
         public bool IsValidKeypath(List<string> inputs)
         {
             if (inputs == null || !inputs.Any())
             {
-                _log.Information($"KeypathProcessor.KeypathIsValid() No valid inputs");
+                _log.Information($"KeypathProcessor::KeypathIsValid() No valid inputs");
                 return false;
             }
 
@@ -93,12 +121,13 @@ namespace PathConverter.Processors
                         case Constants.Keypaths.SELECT:
                             break;
                         default:
-                            _log.Information($"KeypathProcessor.KeypathIsValid() Invalid character '{character}' detected at index {input.IndexOf(character)}.");
+                            _log.Information($"KeypathProcessor::KeypathIsValid() Invalid character '{character}' detected at index {input.IndexOf(character)}.");
                             return false;
                     }
                 }
             }
 
+            _log.Information("KeypathProcessor::KeypathIsValid() Valid Input");
             return true;
         }
     }

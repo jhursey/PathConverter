@@ -8,8 +8,14 @@ using PathConverter.Interfaces;
 
 namespace PathConverter.Models
 {
+    /// <summary>
+    /// Represents a keypath from a keyboard
+    /// </summary>
     public class Keypath : IKeypath
     {
+        /// <summary>
+        /// The inputs from the path
+        /// </summary>
         public List<string> Inputs { get; set; }
 
         public Keypath() { }

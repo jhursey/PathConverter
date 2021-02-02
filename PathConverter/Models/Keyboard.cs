@@ -5,6 +5,9 @@ using PathConverter.Interfaces;
 
 namespace PathConverter.Models
 {
+    /// <summary>
+    /// Represents a keyboard in a 2 dimensional List of keys.
+    /// </summary>
     public class Keyboard : IKeyboard
     {       
         public Keyboard()

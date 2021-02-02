@@ -15,12 +15,11 @@ namespace PathConverter
             public const char SPACE = 'S';
             public const char SELECT = '*';
         }
-
+               
         public static class FilePaths 
         {
-            public const string LOG = "";
-            public const string INPUT = "";
-            public const string OUTPUT = "";
+            public const string LOG = @"C:\temp\PathConvertLog.txt";
+            public const string TESTINPUT = @"C:\Users\jkolt\source\repos\PathConverter\PathConverter\Files\input.txt";
         }
 
     }
