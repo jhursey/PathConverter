@@ -214,7 +214,7 @@ namespace PathConverter.Tests
 
             string result = processor.ConvertKeypath(keypath, keyboard);
 
-            result.Should().Be("F\r\n5\r\nA\r\nA"); //We trim whitespace so input of only whitespace will not be returned 
+            result.Should().Be("F\r\n5\r\nA\r\nA"); //Tests wrap around points to ensure transition is correct
         }
 
         [TestMethod]

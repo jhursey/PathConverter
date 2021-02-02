@@ -5,8 +5,12 @@ using Serilog;
 
 namespace PathConverter
 {
-    public class Program
+    public class PathConverter
     {
+        /// <summary>
+        /// Driver that converts an input file's keypath to text.
+        /// Logs data to both console and file
+        /// </summary>
         public static void Main(string[] args)
         {
             //Using Serilog for logging.  Makes output simple and will write results to file.
@@ -23,7 +27,7 @@ namespace PathConverter
             //Allowing user to enter multiple files for path conversion
             do
             {
-                Console.Write("Enter file path (0 to exit): ");
+                Console.Write("Enter the path of the file to convert (0 to exit): ");
                 filepath = Console.ReadLine();
 
                 if (filepath == "0")
@@ -36,7 +40,7 @@ namespace PathConverter
 
                 if (!string.IsNullOrWhiteSpace(convertedMessage))
                 {
-                    Log.Logger.Information($"Input: {keypath} converts to {convertedMessage}");
+                    Log.Logger.Information($"Input: {keypath} converts to\n{convertedMessage}");
                 }
 
             } while (filepath != "0");

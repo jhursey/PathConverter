@@ -1,0 +1,11 @@
+2021-02-02 10:53:36.826 -05:00 [INF] KeypathProcessor::KeypathIsValid() Valid Input
+2021-02-02 10:53:36.892 -05:00 [INF] KeypathProcessor::ConvertKeypath() Conversion Successful
+2021-02-02 10:53:36.893 -05:00 [INF] Input: DDDR*UU*LLLU*SDD*DLL*UU*U*RRD*SURRR*LLDD*LLL*DRR*RRRU*SUULL*DDLLL*LLLD*SUULL*DDL*LLU*RRR*UUR*L*SDDL*RD*UUUR*DDR*SRRD*UU*LLLU*SDR*RU*UUR*L*SDDRRR*DDL*LLU*
+SSSS
+*R*R*R*R*
+ converts to 
+THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG
+    
+ABCDE
+2021-02-02 10:54:03.452 -05:00 [INF] KeypathProcessor::ParseFile() File: 'badfilepath' does not exist.
+2021-02-02 10:54:03.454 -05:00 [INF] KeypathProcessor::ConvertKeypath() No valid input.
