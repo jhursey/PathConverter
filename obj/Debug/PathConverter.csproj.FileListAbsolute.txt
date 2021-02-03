@@ -1,0 +1,10 @@
+C:\Users\mstrn\source\repos\PathConverter\bin\Debug\PathConverter.exe.config
+C:\Users\mstrn\source\repos\PathConverter\bin\Debug\PathConverter.exe
+C:\Users\mstrn\source\repos\PathConverter\bin\Debug\PathConverter.pdb
+C:\Users\mstrn\source\repos\PathConverter\obj\Debug\PathConverter.csprojAssemblyReference.cache
+C:\Users\mstrn\source\repos\PathConverter\obj\Debug\PathConverter.PathConverter.resources
+C:\Users\mstrn\source\repos\PathConverter\obj\Debug\PathConverter.Properties.Resources.resources
+C:\Users\mstrn\source\repos\PathConverter\obj\Debug\PathConverter.csproj.GenerateResource.cache
+C:\Users\mstrn\source\repos\PathConverter\obj\Debug\PathConverter.csproj.CoreCompileInputs.cache
+C:\Users\mstrn\source\repos\PathConverter\obj\Debug\PathConverter.exe
+C:\Users\mstrn\source\repos\PathConverter\obj\Debug\PathConverter.pdb
