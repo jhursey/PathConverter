@@ -1,0 +1,34 @@
+Note :
+
+Considerations:
+This program could have been console app or with visual window based.I decided to go with the simplest 
+of its forms as it feels that this will be used mostly as a script than somebody manually selecting 
+the path to a program.
+
+Hence,
+This is how I expect this program to be run on PROD.
+
+A filewatcher will monitor incomming flat file,which will kick off an event on automation softwares
+like Automic UC4,that will run a batch script command to run the EXE file.
+
+The EXE(console application) file will be looking for Files in  "C:\\SampleFile\\" with name :
+"samplefile.txt". So,effectively the full file patch should be "C:\\SampleFile\\samplefile.txt".
+
+After it receives the file,
+It will use the algorithm,"State Machine", to produce the new TEXT file with output containing what user
+selected .
+For convenience,the file is stored in the same folder "SampleFile",but we send this to any location we want.
+
+Now,we can use this to train other modules as files are produced that can be moved around and tested.
+
+The Output file produced has this format : "UserOutput_{Ticks(This is large number)}",and is produced on same folder.
+
+
+PS:
+If there were some software that could capture traversal information,
+I am curious if we can use Graph Theory to find most optiminum way of arranging the number and letters 
+so that the traversal is minimum.Some letters are rarely used and some are used frequently.
+This is what I meant by training earlier,we can get what is produced frequently and understand if arrangement 
+of the letters can be better for less travel.
+
+
