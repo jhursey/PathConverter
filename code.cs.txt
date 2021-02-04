@@ -1,0 +1,205 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PathFinder
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string userInput = string.Empty;
+            string TestCommand1 = "DDDR*UU*LLLU*SDD*DLL*UU*U*RRD*SURRR*LLDD*LLL*DRR*RRRU*SUULL*DDLLL*LLLD*SUULL*DDL*LLU*RRR*UUR*L*SDDL*RD*UUUR*DDR*SRRD*UU*LLLU*SDR*RU*UUR*L*SDDRRR*DDL*LLU*";
+            string TestCommand2 = "DD*DD*SUUR*UUL*DD*RRRRUU*SDLL*LLDD*SRRRU*RR*RUU*LLD*RRU*DDD*UUR*SLU*LDD*DDR*DD*LD*";
+            try
+            {
+                string[] lines = File.ReadAllLines("C:\\SampleFile\\samplefile.txt");
+                var command = string.Concat(lines).Replace(" " ,"");
+                userInput = new StateMachine(command).ConvertCommandToInputs().GetParsedString();
+                File.WriteAllText($"C:\\SampleFile\\UserOutput_{DateTime.Now.Ticks}.txt", userInput);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception: " + ex.Message);
+                Console.ReadLine();
+            }
+            finally
+            {
+                Console.WriteLine("User Input");
+                Console.WriteLine(userInput);
+            }
+
+        }
+
+        public class StateMachine
+        {
+            public StateMachine(string s)
+            {
+                _inputFile = s;
+            }
+            private string _inputFile = string.Empty;
+            string configuringCommand = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            private List<char> _parsedString = new List<char>();
+            public int CurrentPosition { get; set; } = 0;
+            public char CurrentChar { get; set; } = 'A';
+
+            public StateMachine ConvertCommandToInputs()
+            {
+                _inputFile.ToCharArray().ToList().ForEach(x => Input(x));
+                return this;
+            }
+
+
+            public string GetParsedString()
+            {
+                return new string(_parsedString.ToArray());
+            }
+            public void Input(char c)
+            {
+                switch (c)
+                {
+                    case 'U':
+                        MoveUp(c);
+                        break;
+                    case 'D':
+                        MoveDown(c);
+                        break;
+                    case 'L':
+                        MoveLeft(c);
+                        break;
+                    case 'R':
+                        MoveRight(c);
+                        break;
+                    case '*':
+                        Select();
+                        break;
+                    case 'S':
+                        Space();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            public void MoveLeft(char c)
+            {
+                var leftPosition = CurrentPosition - 1;
+                try
+                {
+
+
+                    if (CurrentPosition % 6 != 0)
+                    {
+                        CurrentPosition = leftPosition;
+                        CurrentChar = configuringCommand[CurrentPosition];
+
+                    }
+                    else
+                    {
+                        CurrentPosition = CurrentPosition + 5;
+                        CurrentChar = configuringCommand[CurrentPosition];
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+
+            }
+            public void MoveRight(char c)
+            {
+                var rightPosition = CurrentPosition + 1;
+                try
+                {
+                    if (rightPosition  % 6 != 0)
+                    {
+                        CurrentPosition = rightPosition;
+                        CurrentChar = configuringCommand[CurrentPosition];
+
+                    }
+                    else
+                    {
+                        CurrentPosition = CurrentPosition - 5;
+                        CurrentChar = configuringCommand[CurrentPosition];
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+
+
+
+            }
+            public void MoveUp(char c)
+            {
+                var upPosition = CurrentPosition - 6;
+                try
+                {
+
+
+                    if (upPosition >= 0)
+                    {
+                        CurrentPosition = upPosition;
+                        CurrentChar = configuringCommand[CurrentPosition];
+
+                    }
+                    else
+                    {
+                        CurrentPosition = CurrentPosition + (5 * 6);
+                        CurrentChar = configuringCommand[CurrentPosition];
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+
+
+            }
+            public void MoveDown(char c)
+            {
+                var DownPosition = CurrentPosition + 6;
+                try
+                {
+
+                    if (DownPosition < configuringCommand.Length)
+                    {
+                        CurrentPosition = DownPosition;
+                        CurrentChar = configuringCommand[CurrentPosition];
+
+                    }
+                    else
+                    {
+                        CurrentPosition = CurrentPosition - (5 * 6);
+                        CurrentChar = configuringCommand[CurrentPosition];
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+
+
+
+            }
+            public void Space()
+            {
+                _parsedString.Add(' ');
+            }
+            public void Select()
+            {
+                _parsedString.Add(CurrentChar);
+            }
+
+        }
+
+    }
+}
