@@ -115,39 +115,3 @@ public class PathConverter {
         }
     }    
 }
-
-/*
-        for(int remoteButton = 0; remoteButton < inputTempArray.length; remoteButton++){
-            String temp = inputTempArray[remoteButton];
-            System.out.print(temp);
-
-            for(int characterRow = positionY; characterRow < tvRemote.length; characterRow++){
-                for(int characterColumn = positionX; characterColumn < tvRemote.length; characterColumn++){
-                                   
-                    if(temp.equals("U")){
-                        characterRow--; 
-                        positionY = characterRow; 
-                        //System.out.println(tvRemote[characterRow][characterColumn]);
-                    } else if(temp.equals("D")){
-                        characterRow++;
-                        positionY = characterRow;
-                        //System.out.println(tvRemote[characterRow][characterColumn]);
-                    } else if(temp.equals("L")){
-                        characterColumn--;
-                        positionX = characterColumn;
-                        //System.out.println(tvRemote[characterRow][characterColumn]);
-                    } else if(temp.equals("R")){
-                        characterColumn++;
-                        positionX = characterColumn;
-                        //System.out.println(tvRemote[characterRow][characterColumn]);
-                    } else if(temp.equals("S")){
-                        output.add(" ");
-                    } else if(temp.equals("*")){                        
-                        output.add(tvRemote[characterRow][characterColumn].toString());  
-                    } 
-                }
-            }
-            searchTerm = output.toString();
-            //System.out.println("OUTPUT: " + output.toString());
-        }
-*/
