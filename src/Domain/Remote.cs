@@ -21,27 +21,55 @@ namespace PathConverter.Domain
       _pointer = new SearchPointer();
     }
 
-    public void MovePointerUp() => _pointer.ColIndex--;
-    public void MovePointerDown() => _pointer.ColIndex++;
-    public void MovePointerLeft() => _pointer.RowIndex--;
-    public void MovePointerRight() => _pointer.RowIndex++;
+    public void MovePointerUp()
+    {
+      _pointer.RowIndex--;
+      if (_pointer.RowIndex == -1) 
+        _pointer.RowIndex = NumberOfRows - 1;
+    } 
+    public void MovePointerDown()
+    {
+      _pointer.RowIndex++;
+      if (_pointer.RowIndex == NumberOfRows) 
+        _pointer.RowIndex = 0;
+    }
+    public void MovePointerLeft()
+    {
+      _pointer.ColIndex--;
+      if (_pointer.ColIndex == -1) 
+        _pointer.ColIndex = NumberOfColumns - 1;
+    }
+    public void MovePointerRight()
+    {
+      _pointer.ColIndex++;
+      if (_pointer.ColIndex == NumberOfColumns)
+        _pointer.ColIndex = 0;
+    }
 
     public char GetCurrentCharacter() => 
-      _searchGrid.GetRowAtIndex(_pointer.RowIndex).GetCharacterAtIndex(_pointer.ColIndex);
-
-    public void AddCharacterToSearch()
-    {
-      var currentChar = _searchGrid
+      _searchGrid
         .GetRowAtIndex(_pointer.RowIndex)
         .GetCharacterAtIndex(_pointer.ColIndex);
 
-      _searchTerm.Append(currentChar);
-    }
+    public string GetCurrentSearchTerm() =>
+      _searchTerm.ToString();
 
+    public void AddCharacterToSearch() =>
+      _searchTerm.Append(GetCurrentCharacter());
+
+    public void AddSpaceToSearch() =>
+      _searchTerm.Append(' ');
+
+    //at a minimum, NumberOfRows can be variable, and assuming the 36 characters remain the same,
+    //NumberOfColumns can be derived
+    //can also make order of AsciiValues variable (e.g. startingValue, doesZeroComeBeforeOne maybe all that's needed)
+
+    //prolly move this to the Grid class
     private static Grid PopulateGrid()
     {
       var grid = new Grid(NumberOfRows);
       var charValue = AsciiValues.A;
+
       for (var i = 0; i < NumberOfRows; i++)
       {
         var row = new Row(NumberOfColumns);
@@ -55,7 +83,6 @@ namespace PathConverter.Domain
         }
         grid.SetRowAtIndex(row, i);
       }
-
       return grid;
     }
 
