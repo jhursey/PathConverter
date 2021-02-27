@@ -4,7 +4,7 @@ namespace PathConverter.Domain
 {
   public class Remote
   {
-    private const int AllLettersAndTenDigits = 36;
+    private const int DefaultGridLayout = 6;
 
     private readonly int _numberOfRows;
     private readonly int _numberOfColumns;
@@ -15,51 +15,55 @@ namespace PathConverter.Domain
 
     public Remote()
     {
-      _numberOfRows = _numberOfColumns = AllLettersAndTenDigits / 6;
+      _numberOfRows = _numberOfColumns = DefaultGridLayout;
+
       _searchGrid = new Grid(_numberOfRows, _numberOfColumns);
       _searchTerm = new StringBuilder();
       _pointer = new SearchPointer();
       _inputEncoding = new InputEncoding();
     }
 
-    public void MovePointerUp()
+    private void MovePointerUp()
     {
       _pointer.RowIndex--;
       if (_pointer.RowIndex == -1) 
         _pointer.RowIndex = _numberOfRows - 1;
     } 
-    public void MovePointerDown()
+    private void MovePointerDown()
     {
       _pointer.RowIndex++;
       if (_pointer.RowIndex == _numberOfRows) 
         _pointer.RowIndex = 0;
     }
-    public void MovePointerLeft()
+    private void MovePointerLeft()
     {
       _pointer.ColIndex--;
       if (_pointer.ColIndex == -1) 
         _pointer.ColIndex = _numberOfColumns - 1;
     }
-    public void MovePointerRight()
+    private void MovePointerRight()
     {
       _pointer.ColIndex++;
       if (_pointer.ColIndex == _numberOfColumns)
         _pointer.ColIndex = 0;
     }
 
-    public char GetCurrentCharacter() => 
+    private char GetCurrentCharacter() => 
       _searchGrid
         .GetRowAtIndex(_pointer.RowIndex)
         .GetCharacterAtIndex(_pointer.ColIndex);
 
-    public string GetCurrentSearchTerm() =>
+    private string GetCurrentSearchTerm() =>
       _searchTerm.ToString();
 
-    public void AddCharacterToSearch() =>
+    private void AddCharacterToSearch() =>
       _searchTerm.Append(GetCurrentCharacter());
 
-    public void AddSpaceToSearch() =>
+    private void AddSpaceToSearch() =>
       _searchTerm.Append(' ');
+
+    private void ClearSearchTerm() =>
+      _searchTerm.Clear();
 
     public string InterpretInput(string keyPath)
     {
@@ -79,24 +83,38 @@ namespace PathConverter.Domain
           MovePointerRight();
       }
 
-      return GetCurrentSearchTerm();
+      var decodedKeyPath = GetCurrentSearchTerm();
+      ClearSearchTerm();
+      _pointer.ResetPointer();
+
+      return decodedKeyPath;
     }
 
-    public class SearchPointer
+    internal class SearchPointer
     {
-      public SearchPointer()
+      internal SearchPointer()
+      {
+        ResetPointer();
+      }
+
+      internal int RowIndex { get; set; }
+      internal int ColIndex { get; set; }
+
+      internal void ResetPointer()
       {
         RowIndex = 0;
         ColIndex = 0;
       }
-
-      public int RowIndex { get; set; }
-      public int ColIndex { get; set; }
     }
 
-    public class InputEncoding
+    internal class InputEncoding
     {
-      public InputEncoding()
+      internal InputEncoding()
+      {
+        DefaultEncoding();
+      }
+
+      private void DefaultEncoding()
       {
         MoveUp = 'U';
         MoveDown = 'D';
@@ -106,12 +124,12 @@ namespace PathConverter.Domain
         SelectItem = '*';
       }
 
-      public char MoveUp { get; set; }
-      public char MoveDown { get; set; }
-      public char MoveLeft { get; set; }
-      public char MoveRight { get; set; }
-      public char AddSpace { get; set; }
-      public char SelectItem { get; set; }
+      internal char MoveUp { get; set; }
+      internal char MoveDown { get; set; }
+      internal char MoveLeft { get; set; }
+      internal char MoveRight { get; set; }
+      internal char AddSpace { get; set; }
+      internal char SelectItem { get; set; }
     }
   }
 }

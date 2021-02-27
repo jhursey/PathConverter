@@ -3,25 +3,18 @@ namespace PathConverter.Domain
 {
   public class Grid
   {
-    private Row[] _rows;
+    private readonly Row[] _rows;
 
     public Grid(int numberOfRows, int numberOfColumns)
     {
       _rows = new Row[numberOfRows];
-      PopulateGrid(numberOfRows, numberOfColumns, new GridCharacterOrder());
-    }
-
-    public Grid(int numberOfRows, int numberOfColumns, int configCode)
-    {
-      _rows = new Row[numberOfRows];
-      PopulateGrid(numberOfRows, numberOfColumns, new GridCharacterOrder(configCode));
+      PopulateGrid(numberOfRows, numberOfColumns, new CharacterOrder());
     }
 
     public Row GetRowAtIndex(int index) => _rows[index];
     public void SetRowAtIndex(Row row, int index) => _rows[index] = row;
-    public void SetRows(Row[] rows) => _rows = rows;
 
-    private void PopulateGrid(int numberOfRows, int numberOfColumns, GridCharacterOrder order)
+    private void PopulateGrid(int numberOfRows, int numberOfColumns, CharacterOrder order)
     {
       var charValue = 
         order.StartWithNumbers
@@ -57,19 +50,19 @@ namespace PathConverter.Domain
       }
     }
 
-    public class GridCharacterOrder
+    internal class CharacterOrder
     {
-      public GridCharacterOrder() : this(0) { }
+      internal CharacterOrder() : this(0) { }
 
-      public GridCharacterOrder(int configCode)
+      internal CharacterOrder(int configCode)
       {
         SetConfiguration(configCode);
       }
 
-      public bool StartWithNumbers { get; set; }
-      public bool IsOneBeforeZero { get; set; }
+      internal bool StartWithNumbers { get; set; }
+      internal bool IsOneBeforeZero { get; set; }
 
-      public void SetConfiguration(int configCode)
+      private void SetConfiguration(int configCode)
       {
         switch (configCode)
         {
@@ -88,21 +81,21 @@ namespace PathConverter.Domain
         }
       }
 
-      public enum OrderConfig
+      private enum OrderConfig
       {
         StartWithLettersThenOne,
         StartWithLettersThenZero,
         StartWithOne
       }
     }
-  }
 
-  public enum AsciiValues
-  {
-    Zero = 48,
-    One = 49,
-    Colon = 58,
-    A = 65,
-    OpenBracket = 91
+    private enum AsciiValues
+    {
+      Zero = 48,
+      One = 49,
+      Colon = 58,
+      A = 65,
+      OpenBracket = 91
+    }
   }
 }
