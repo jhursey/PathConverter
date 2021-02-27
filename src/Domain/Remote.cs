@@ -1,48 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace PathConverter.Domain
 {
   public class Remote
   {
-    private const int NumberOfRows = 6;
-    private const int NumberOfColumns = 6;
+    private const int AllLettersAndTenDigits = 36;
 
-    private Grid _searchGrid;
-    private StringBuilder _searchTerm;
-    private SearchPointer _pointer;
+    private readonly int _numberOfRows;
+    private readonly int _numberOfColumns;
+    private readonly Grid _searchGrid;
+    private readonly StringBuilder _searchTerm;
+    private readonly SearchPointer _pointer;
+    private readonly InputEncoding _inputEncoding;
 
     public Remote()
     {
-      _searchGrid = PopulateGrid();
+      _numberOfRows = _numberOfColumns = AllLettersAndTenDigits / 6;
+      _searchGrid = new Grid(_numberOfRows, _numberOfColumns);
       _searchTerm = new StringBuilder();
       _pointer = new SearchPointer();
+      _inputEncoding = new InputEncoding();
     }
 
     public void MovePointerUp()
     {
       _pointer.RowIndex--;
       if (_pointer.RowIndex == -1) 
-        _pointer.RowIndex = NumberOfRows - 1;
+        _pointer.RowIndex = _numberOfRows - 1;
     } 
     public void MovePointerDown()
     {
       _pointer.RowIndex++;
-      if (_pointer.RowIndex == NumberOfRows) 
+      if (_pointer.RowIndex == _numberOfRows) 
         _pointer.RowIndex = 0;
     }
     public void MovePointerLeft()
     {
       _pointer.ColIndex--;
       if (_pointer.ColIndex == -1) 
-        _pointer.ColIndex = NumberOfColumns - 1;
+        _pointer.ColIndex = _numberOfColumns - 1;
     }
     public void MovePointerRight()
     {
       _pointer.ColIndex++;
-      if (_pointer.ColIndex == NumberOfColumns)
+      if (_pointer.ColIndex == _numberOfColumns)
         _pointer.ColIndex = 0;
     }
 
@@ -60,30 +61,25 @@ namespace PathConverter.Domain
     public void AddSpaceToSearch() =>
       _searchTerm.Append(' ');
 
-    //at a minimum, NumberOfRows can be variable, and assuming the 36 characters remain the same,
-    //NumberOfColumns can be derived
-    //can also make order of AsciiValues variable (e.g. startingValue, doesZeroComeBeforeOne maybe all that's needed)
-
-    //prolly move this to the Grid class
-    private static Grid PopulateGrid()
+    public string InterpretInput(string keyPath)
     {
-      var grid = new Grid(NumberOfRows);
-      var charValue = AsciiValues.A;
-
-      for (var i = 0; i < NumberOfRows; i++)
+      foreach (var c in keyPath)
       {
-        var row = new Row(NumberOfColumns);
-        for (var j = 0; j < NumberOfColumns; j++)
-        {
-          if (charValue == AsciiValues.OpenBracket) charValue = AsciiValues.One;
-          if (charValue == AsciiValues.Colon) charValue = AsciiValues.Zero;
-
-          row.SetCharacterAtIndex((char)charValue, j);
-          charValue++;
-        }
-        grid.SetRowAtIndex(row, i);
+        if (c == _inputEncoding.SelectItem)
+          AddCharacterToSearch();
+        else if (c == _inputEncoding.AddSpace)
+          AddSpaceToSearch();
+        else if (c == _inputEncoding.MoveUp)
+          MovePointerUp();
+        else if (c == _inputEncoding.MoveDown)
+          MovePointerDown();
+        else if (c == _inputEncoding.MoveLeft)
+          MovePointerLeft();
+        else if (c == _inputEncoding.MoveRight) 
+          MovePointerRight();
       }
-      return grid;
+
+      return GetCurrentSearchTerm();
     }
 
     public class SearchPointer
@@ -97,15 +93,25 @@ namespace PathConverter.Domain
       public int RowIndex { get; set; }
       public int ColIndex { get; set; }
     }
-  }
 
-  public enum AsciiValues
-  {
-    Zero = 48,
-    One = 49,
-    Colon = 58,
-    A = 65,
-    OpenBracket = 91
-  }
+    public class InputEncoding
+    {
+      public InputEncoding()
+      {
+        MoveUp = 'U';
+        MoveDown = 'D';
+        MoveLeft = 'L';
+        MoveRight = 'R';
+        AddSpace = 'S';
+        SelectItem = '*';
+      }
 
+      public char MoveUp { get; set; }
+      public char MoveDown { get; set; }
+      public char MoveLeft { get; set; }
+      public char MoveRight { get; set; }
+      public char AddSpace { get; set; }
+      public char SelectItem { get; set; }
+    }
+  }
 }

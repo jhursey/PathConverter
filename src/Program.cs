@@ -12,6 +12,10 @@ namespace PathConverter
 
     public static int Main(string[] args)
     {
+      //add try-catch block for FileNotFoundException
+      //do I throw the exception in the catch blow? see Chris's article in slack from the other day
+      //any other exceptions I should guard against?
+      
       if (args.Length != 1)
       {
         Console.WriteLine("Input a single file path to run the program.");
@@ -21,47 +25,16 @@ namespace PathConverter
       var remote = new Remote();
 
       var filePath = args[0];
-      //prolly need to do more sanitizing here 
-      var lines = File.ReadLines(filePath);
+      var keyPaths = File.ReadLines(filePath);
 
-      var output = lines
-        .Select(line => InterpretInput(remote, line))
+      var output = keyPaths
+        .Select(k => remote.InterpretInput(k))
         .ToList();
 
       File.WriteAllLines("searchTerms.txt", output);
       return 0;
     }
 
-    //this can be moved into Remote class, and the characters themselves can be extracted into
-    //a class so that we aren't married to this encoding
-    private static string InterpretInput(Remote remote, string keyPath)
-    {
-      foreach (var c in keyPath)
-      {
-        switch (c)
-        {
-          case '*':
-            remote.AddCharacterToSearch();
-            break;
-          case 'S':
-            remote.AddSpaceToSearch();
-            break;
-          case 'U':
-            remote.MovePointerUp();
-            break;
-          case 'D':
-            remote.MovePointerDown();
-            break;
-          case 'L':
-            remote.MovePointerLeft();
-            break;
-          case 'R':
-            remote.MovePointerRight();
-            break;
-        }
-      }
-
-      return remote.GetCurrentSearchTerm();
-    }
+    
   }
 }
