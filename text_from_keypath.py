@@ -3,10 +3,9 @@ def getFile():
     file_path = input("Input the path to the flat file: ")
     try:
         keypath = open(file_path, "r")
+        return keypath
     except:
-        print("The file is not there.")
-        print("Run again once found.")
-    return keypath
+        print("No file found there.")
 # Secondly, iterate through the file and update a state dictionary containing string and grid states.
 # Also, the nested if statement checks for out of bounds and resets it accordingly.
 def analyzeFile(file):
@@ -52,7 +51,10 @@ def outputSearchTerm(textToNewFile):
     searchTermFile.close()
 
 def main():
-    outputSearchTerm(analyzeFile(getFile()))
-    print("--Text from Keypath Complete.--")
-    print("--File Created--")
+    try:
+        outputSearchTerm(analyzeFile(getFile()))
+        print("--Text from Keypath Complete.--")
+        print("--File Created--")
+    except:
+        print("An error occurred. Refer to the above message for more information.")
 main()
