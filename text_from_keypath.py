@@ -19,12 +19,20 @@ def analyzeFile(file):
         ['5', '6', '7', '8', '9', '0'] ]
     for character in file.read():
         if character == "U":
+            if state_dict["grid_state"][0] == -6:
+                state_dict["grid_state"][0] = 0
             state_dict["grid_state"][0] -= 1
         elif character == "D":
+            if state_dict["grid_state"][0] == 5:
+                state_dict["grid_state"][0] = -1
             state_dict["grid_state"][0] += 1
         elif character == "L":
+            if state_dict["grid_state"][1] == -6:
+                state_dict["grid_state"][1] = 0
             state_dict["grid_state"][1] -= 1
         elif character == "R":
+            if state_dict["grid_state"][1] == 5:
+                state_dict["grid_state"][1] = -1
             state_dict["grid_state"][1] += 1
         elif character == "*":
             print(state_dict["string_state"])
