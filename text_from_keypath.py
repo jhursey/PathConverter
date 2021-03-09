@@ -53,5 +53,6 @@ def outputSearchTerm(textToNewFile):
 
 def main():
     outputSearchTerm(analyzeFile(getFile()))
-
+    print("--Text from Keypath Complete.--")
+    print("--File Created--")
 main()
