@@ -43,6 +43,9 @@ def analyzeFile(file):
             state_dict["string_state"] += nav_grid[indexOne][indexTwo]
         elif character == "S":
             state_dict["string_state"] += " "
+        elif character == "\n":
+            state_dict.update({"grid_state": [0, 0]})
+            state_dict["string_state"] += "\n"
     return state_dict["string_state"]
 # Lastly, open a new file to return and give it your search term string.
 def outputSearchTerm(textToNewFile):
